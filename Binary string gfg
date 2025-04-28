@@ -1,0 +1,52 @@
+Given binary string str of length N. The task is to find the maximum count of consecutive substrings str can be divided into such that all the substrings are balanced i.e. 
+they have an equal number of 0s and 1s. If it is not possible to split str satisfying the conditions then return -1.
+
+
+Approach: Similar to balanced parenthesis approach using stack, we keep inserting if top of stack matches with traversing character. we keep popping when its not matching with top of stack. Whenever stack is empty, it means we got a balanced substring. In this case, we increase answer variable. At last after complete traversal, we will check if stack is empty or not. If yes, it means everything is balanced out. If not, it means it’s not balanced.
+
+Below is th
+#include<bits/stdc++.h>
+using namespace std;
+int maxSubStr(string str, int n)
+{
+  //similar to balanced paranthesis approach
+  //we insert similar elements and pop when different element seen 
+  //finally checking if stack will be empty or not at last
+  //if empty, it is balanced
+     int ans=0;
+     int i=0;
+     stack<int>s;
+     s.push(str[i]);
+     i++;
+     while(i<str.size()){
+        while(i<str.size()&&s.size()&&i<str.size()&&(s.top()!=str[i])){
+            s.pop();
+            i++;
+        }
+        if(s.empty()){
+            ans++;
+        }
+        while((i<str.size())&&(s.empty()||s.top()==str[i])){
+            s.push(str[i]);
+            i++;
+        }
+     }
+     if(s.empty())
+     return ans;
+     return -1;
+     }
+// Driver code
+int main()
+{
+    string str = "0100110101";
+    int n = str.length();
+  
+    cout << maxSubStr(str, n);
+  
+    return 0;
+}
+Output
+4
+ Time complexity: O(n), where n is the length of the input string. This is because the code iterates over the string once.
+Auxiliary Space: O(n), the above code is using a stack to store the elements of string, so over all complexity is O(n).
+
