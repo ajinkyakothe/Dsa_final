@@ -1,0 +1,43 @@
+Given a string s, composed of different combinations of '(' , ')', '{', '}', '[', ']', verify the validity of the arrangement.
+An input string is valid if:
+
+         1. Open brackets must be closed by the same type of brackets.
+         2. Open brackets must be closed in the correct order.
+
+Examples :
+
+Input: s = "[{()}]"
+Output: true
+Explanation: All the brackets are well-formed.
+Input: s = "[()()]{}"
+Output: true
+Explanation: All the brackets are well-formed.
+
+ bool isBalanced(string& s) {
+       
+       stack<char>st;
+       int i=0;
+    
+       for(ch:s)
+       {
+           
+           if(ch=='(' || ch=='{' || ch=='[')
+           {
+               st.push(ch);
+           }
+          
+           else
+           {
+           if(st.empty() || (ch==')' && st.top()!='(') || (ch=='}' && st.top()!='{') || (ch==']' && st.top()!='[') )
+           {
+               return false;
+           }
+           st.pop();
+           }
+           
+       }
+       
+       return st.empty();
+       
+        
+    }
