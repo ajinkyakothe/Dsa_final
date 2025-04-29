@@ -1,0 +1,57 @@
+Count Palindromic Subsequences
+Difficulty: MediumAccuracy: 17.0%Submissions: 151K+Points: 4
+Given a string s, you have to find the number of palindromic subsequences (need not necessarily be distinct) present in the string s. 
+
+Examples:
+
+Input: s = "abcd"
+Output: 4
+Explanation: palindromic subsequence are : 'a' ,'b', 'c' ,'d'
+Input: s = "aab"
+Output: 4
+Explanation: palindromic subsequence are : 'a', 'a', 'b', 'aa'
+
+Not optimised but my approach which is giving the TLE
+
+ void solve(string &s, int ind, vector<string> &ans, string temp) {
+    if (ind >= s.length()) {
+        if (!temp.empty())  // Avoid adding empty string
+            ans.push_back(temp);
+        return;
+    }
+
+    // exclude current character
+    solve(s, ind + 1, ans, temp);
+
+    // include current character
+    temp += s[ind];
+    solve(s, ind + 1, ans, temp);
+}
+
+// Count palindromic subsequences
+int countPS(string &s) {
+    vector<string> ans;
+    string temp = "";
+    solve(s, 0, ans, temp);
+
+    int cnt = 0;
+    for (auto &k : ans) {
+        string check = k;
+        int i = 0, j = check.length() - 1;
+        bool isPalindrome = true;
+
+        while (i < j) {
+            if (check[i] != check[j]) {
+                isPalindrome = false;
+                break;
+            }
+            i++;
+            j--;
+        }
+
+        if (isPalindrome)
+            cnt++;
+    }
+
+    return cnt;
+}
