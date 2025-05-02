@@ -22,6 +22,35 @@ class Solution {
           sort(s.begin(),s.end());
           mp[s].push_back(str);
       }
+
+
+
+//with the sorted array:::
+
+ /*
+unordered_map<string, vector<string>> mp;
+    vector<string> order;  // To maintain insertion order of keys
+    for (auto& str : arr) {
+        string key = str;
+        sort(key.begin(), key.end());
+        if (mp.find(key) == mp.end()) {
+            order.push_back(key);  // record the first appearance
+        }
+        mp[key].push_back(str);
+    }
+
+    vector<vector<string>> ans;
+    for (auto& key : order) {
+        ans.push_back(mp[key]);
+    }
+
+    return ans;
+
+
+*/
+
+
+      
       
       for(auto i:mp)
       {
