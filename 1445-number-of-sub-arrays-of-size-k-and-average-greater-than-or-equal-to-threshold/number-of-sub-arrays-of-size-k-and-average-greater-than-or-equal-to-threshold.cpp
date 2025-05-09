@@ -1,31 +1,30 @@
 class Solution {
 public:
     int numOfSubarrays(vector<int>& arr, int k, int threshold) {
-      int l=0,r=0;
-      int cnt=0,sum=0;
-      queue<int>q;
-       q.push(arr[l]);
-      while(r<arr.size())
-      {
-        sum+=arr[r];
-         if(q.size()<=k )
-         {
-            q.push(arr[r]);
-         }
-         
-        if (r - l + 1 == k) {
-    int avg = sum / k;
-    if (avg >= threshold) {
-        cnt++;
-    }
-    sum -= arr[l];  // Remove the leftmost value *before* l++
-    l++;
-}
-        q.pop();
-        r++;
-         
-      } 
+        int window_sum=0;
+        int count=0;
+  
+       for(int i=0;i<k;i++)
+       {
+        window_sum += arr[i];
+       }
         
-      return cnt;
+       for(int i=0;i<arr.size()-k+1;++i)
+       {
+        if(i!=0)
+        {
+            window_sum-=arr[i-1];
+            window_sum+=arr[i+k-1];
+        }
+
+        int window_average=window_sum/k;
+        if(window_average>=threshold)
+        {
+            count++;
+        }
+
+       } 
+ 
+return count;
     }
 };
