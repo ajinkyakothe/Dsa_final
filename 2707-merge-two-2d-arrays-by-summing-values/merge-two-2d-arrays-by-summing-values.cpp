@@ -2,28 +2,32 @@ class Solution {
 public:
     vector<vector<int>> mergeArrays(vector<vector<int>>& nums1, vector<vector<int>>& nums2) {
         
-      vector<vector<int>> result;
-    int i = 0, j = 0;
+     int m = nums1.size();
+        int n = nums2.size();
 
-    while (i < nums1.size() && j < nums2.size()) {
-        if (nums1[i][0] == nums2[j][0]) {
-            result.push_back({nums1[i][0], nums1[i][1] + nums2[j][1]});
-            i++;
-            j++;
+        map<int, int> mp;
+        vector<vector<int>> result;
+
+        for(int i=0; i<m; i++){
+            int id = nums1[i][0];
+            int val = nums1[i][1];
+
+            mp[id] = val;
         }
-        else if (nums1[i][0] < nums2[j][0]) {
-            result.push_back(nums1[i++]);
+        for(int i=0; i<n; i++){
+            int id = nums2[i][0];
+            int val = nums2[i][1];
+
+            mp[id] += val;
         }
-        else {
-            result.push_back(nums2[j++]);
+
+        for(auto &it : mp){
+            int id = it.first;
+            int val = it.second;
+
+            result.push_back({id, val});
         }
-    }
 
-    while (i < nums1.size()) result.push_back(nums1[i++]);
-    while (j < nums2.size()) result.push_back(nums2[j++]);
-
-    return result;
-
-
+        return result;
     }
 };
