@@ -1,20 +1,26 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int maxLength=0;
+        //simple approach is to make the substring of the string s and then it is like
+        // to run the loop over the string vector and get the longest string length...
+        // it is variable sliding window problem...
+
         int left=0;
-        unordered_map<char,int>lastSeen;
+        int maxLength=0;
+        unordered_set<char>charSet;
 
         for(int right=0;right<s.length();right++)
         {
-            char c=s[right];
-            if(lastSeen.find(c)!=lastSeen.end() && lastSeen[c]>=left)
+            while(charSet.find(s[right])!=charSet.end())
             {
-                left=lastSeen[c]+1;
+                charSet.erase(s[left]);
+                left++;
             }
+
+            charSet.insert(s[right]);
             maxLength=max(maxLength,right-left+1);
-            lastSeen[c]=right;
         }
-      return maxLength;
+
+       return maxLength;
     }
 };
