@@ -1,30 +1,31 @@
 class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
-       
-      unordered_map<int, int> mpp;
+        unordered_map<int, int> mp; // fruit cha type-> number 
+        int l = 0, res = 0;
 
-        int i = 0, j = 0, res = 0;
-        
-        while(j < fruits.size())
-        {
 
-            mpp[fruits[j]]++;
-            
-            if(mpp.size() <= 2) res = max(res, j-i+1);
-            
-            else
+         for(int r=0;r<fruits.size();r++)
+         {
+            mp[fruits[r]]++;  //fruit cha count store zala
+
+            while(mp.size()>2)
             {
-                mpp[fruits[i]]--;
+                mp[fruits[l]]--;
 
-                if(mpp[fruits[i]] == 0) mpp.erase(fruits[i]);
-
-                i++;
+                if (mp[fruits[l]] == 0) {
+                    mp.erase(fruits[l]);
+                }
+                l++; // shrink window from left
             }
+             
+        
+            //update if the current window is valid
 
-            j++;
-        }
+            res=max(res,r-l+1);
 
-        return res; 
+         }
+     return res;
+
     }
 };
