@@ -1,38 +1,32 @@
 class Solution {
 public:
     string removeStars(string s) {
+        stack<char> st;
 
-     stack<char>st;
-     vector<char>ch;
-     for(char c:s)
-     {
-        if(!st.empty() && c=='*')
-        {
+        // always use the for each for the string
+
+        for (char c : s) {
+            if (!st.empty()) {
+                if (c == '*') {
+                    st.pop();
+                } else {
+                    st.push(c);
+                }
+
+            } else {
+                st.push(c);
+            }
+        }
+
+        string res = "";
+
+        while (!st.empty()) {
+            char temp = st.top();
             st.pop();
+            res += temp;
         }
-        else
-        {
-            st.push(c);
-        }
+        reverse(res.begin(), res.end());
 
-     }
-  
-     string res="";
-
-     while(!st.empty())
-     {
-        ch.push_back(st.top());
-        st.pop();
-     }
-     
-     for(int i=ch.size()-1;i>=0;i--)
-     {
-        res+=ch[i];
-     } 
-
-     return res;
-     
-
-
+        return res;
     }
 };
