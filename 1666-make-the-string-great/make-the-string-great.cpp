@@ -1,21 +1,37 @@
 class Solution {
 public:
     string makeGood(string s) {
-     stack<char>st;
-      for(char c:s)
-     {
-        if (!st.empty() && abs(st.top() - c) == 32) {
-            st.pop();  // remove the bad pair
-        } else {
-            st.push(c);  // add current char if not a bad pair
-        }
-    }
-        string res = "";
-    while (!st.empty()) {
-        res = st.top() + res;  // build in reverse order
-        st.pop();
-    }
+    
+    //simple edge condition for the empty string
+    if(s.size()==0) return s;
 
-    return res;
+
+     //always use the for each loop for the string
+
+     stack<char>st;
+     for(char c:s)
+     {
+        if (!st.empty()) {
+                // compare if current and top of stack differ by 32 (case difference)
+                if (abs(st.top() - c) == 32) {
+                    st.pop();  // good pair, remove both
+                } else {
+                    st.push(c);
+                }
+            } else {
+                st.push(c);
+            }
+     }
+ 
+     string res="";
+     while(!st.empty())
+     {
+        char t=st.top();
+        res+=t;
+        st.pop();
+     }
+     reverse(res.begin(),res.end());
+ 
+     return res;
     }
 };
